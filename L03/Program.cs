@@ -51,3 +51,20 @@ foreach (var car in cars)
 Honda drives down the street
 BMW drives down the street
 */
+
+foreach (var car in cars)
+{
+    System.Console.WriteLine(car);
+}
+/*OUTPUT
+Honda:
+    Color: White,
+    Fuel Type: Gasoline,
+    Transmission Type: Automatic,
+    Car Type: Sedan
+BMW:
+    Color: Black,
+    Fuel Type: Diesel,
+    Transmission Type: Manual,
+    Car Type: Coupe
+*/

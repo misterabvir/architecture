@@ -16,7 +16,7 @@ public abstract class Car(string brand, Color color, int countOfWheel, CarType c
     override public string ToString()
     {
         return $"""
-                {Brand}:, 
+                {Brand}: 
                     Color: {Color}, 
                     Fuel Type: {FuelType}, 
                     Transmission Type: {TransmissionType}, 
