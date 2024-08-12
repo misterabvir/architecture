@@ -1,0 +1,41 @@
+GET {{host}}/notes/ HTTP/1.1
+###
+GET {{host}}/notes/get-by-id/479682a5-58ea-42fa-bf97-68b304796665 HTTP/1.1
+###
+POST {{host}}/notes/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "title" : "Note title",
+    "content" : "Note content"
+}
+
+###
+GET {{host}}/notes/get-by-id/cd5e2ed9-df58-4772-8041-10ba54df8c46 HTTP/1.1
+###
+PUT {{host}}/notes/update-title HTTP/1.1
+Content-Type: application/json
+
+{
+    "noteId" : "cd5e2ed9-df58-4772-8041-10ba54df8c46",
+    "title" : "NEW Note title"
+}
+###
+GET {{host}}/notes/get-by-id/cd5e2ed9-df58-4772-8041-10ba54df8c46 HTTP/1.1
+###
+PUT {{host}}/notes/update-content HTTP/1.1
+Content-Type: application/json
+
+{
+    "noteId" : "cd5e2ed9-df58-4772-8041-10ba54df8c46",
+    "content" : "NEW Note content"
+}
+###
+GET {{host}}/notes/get-by-id/cd5e2ed9-df58-4772-8041-10ba54df8c46 HTTP/1.1
+###
+DELETE {{host}}/notes/delete HTTP/1.1
+Content-Type: application/json
+
+{
+    "noteId" : "cd5e2ed9-df58-4772-8041-10ba54df8c46"
+}

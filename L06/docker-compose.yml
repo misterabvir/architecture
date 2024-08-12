@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  notes_api:
+    image: ${DOCKER_REGISTRY-}notes_api
+    container_name: notes_api
+    hostname: notes_api
+    depends_on:
+      - notes_db
+    build:
+      context: .
+      dockerfile: src/Presentation/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+    ports:
+      - 10001:8080
+      - 10000:8081
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - notes_net
+       
+  notes_db:
+    image: postgres:latest
+    container_name: notes_db
+    hostname: notes_db
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=strong_password
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    restart: always 
+    ports:
+      - 5432:5432
+    volumes:
+      - ./containers/postgres:/var/lib/postgresql/data
+    networks:
+      - notes_net
+
+networks:
+  notes_net:
