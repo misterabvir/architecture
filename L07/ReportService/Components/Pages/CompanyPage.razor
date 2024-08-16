@@ -1,0 +1,41 @@
+﻿@page "/company/{CompanyId}"
+
+
+<PageTitle>Company @_company?.Name</PageTitle>
+
+@if (_company is not null)
+{
+    <MudContainer>
+        <MudGrid>
+            <MudItem xs="12" sm="4">
+                <CompanyInfoComponent Company="@_company"/>
+                <CompanyCategoriesComponent Categories="@_company.Categories"/>               
+            </MudItem>
+            <MudItem xs="12" sm="8">
+               <CompanyReportsComponent Reports="@_company.Reports"/>
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+}
+
+@code {
+    [Inject] public IDataService DataService { get; set; } = null!;
+    [Inject] public NavigationManager NavigationManager { get; set; } = null!;
+    [Parameter] public string? CompanyId { get; set; }
+    public Company? _company { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (int.TryParse(CompanyId, out int companyId))
+        {
+            var company = await DataService.GetReport(companyId);
+            if (company is not null)
+            {
+                _company = company;
+                return;
+            }
+
+        }
+        NavigationManager.NavigateTo("/");
+    }
+}

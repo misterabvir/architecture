@@ -1,0 +1,25 @@
+﻿@foreach (var chart in Charts)
+{
+    <MudPaper Outlined="true">
+        <MudPaper Class="mud-success px-2 mb-5" Square="true">
+            <MudText Typo="Typo.h6"> @chart.Title</MudText>
+        </MudPaper>
+        <MudPaper Class="pa-2">
+            @if (chart.Type == "Pie")
+            {
+                <MudChart ChartType="@ChartType.Pie" InputData="@chart.Values.Split(',').Select(d=>double.Parse(d)).ToArray()" InputLabels="@chart.Labels.Split(',')" />
+            }
+            else
+            {
+                var data = chart.Values.Split(',').Select(d => double.Parse(d)).ToArray();
+                List<ChartSeries> series = [new ChartSeries() { Name = "sales", Data = data }];
+                var labels = chart.Labels.Split(',');
+                <MudChart ChartType="@ChartType.Line" ChartSeries="@series" XAxisLabels="@labels" InputData="@data"  />
+            }
+        </MudPaper>
+    </MudPaper>
+}
+
+@code{
+    [Parameter] [EditorRequired] public IEnumerable<Chart> Charts { get; set; } = null!;
+}

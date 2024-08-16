@@ -1,0 +1,22 @@
+﻿<MudPaper Class="my-2" Outlined="true">
+    <MudPaper Class="mud-primary px-2">
+        <MudText Typo="Typo.h6"> CATEGORIES </MudText>
+    </MudPaper>
+    <MudCard Outlined="true">
+        <MudCardContent>
+            @foreach (var category in Categories)
+            {
+                <MudText Typo="Typo.subtitle1"> @category.Name</MudText>
+
+                @foreach (var product in category.Products)
+                {
+                    <MudText Class="ms-5" Typo="Typo.body2"> @product.Name </MudText>
+                }
+            }
+        </MudCardContent>
+    </MudCard>
+</MudPaper>
+
+@code{
+    [Parameter] [EditorRequired] public IEnumerable<ProductCategory> Categories { get; set; } = null!;
+}

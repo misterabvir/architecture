@@ -1,0 +1,37 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="true" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudNavMenu>
+            <MudNavLink Href="/">Home</MudNavLink>
+        </MudNavMenu>
+        @foreach (var company in _companies)
+        {
+            <MudNavMenu>
+                <MudNavLink Href="@("company/" + company.CompanyId.ToString())">@company.Name</MudNavLink>
+            </MudNavMenu>
+        }
+    </MudAppBar>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code{
+    [Inject] public IDataService DataService { get; set; } = null!;
+
+    private IEnumerable<Company> _companies = [];
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        _companies = await DataService.GetCompanies();
+
+    }
+}

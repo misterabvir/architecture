@@ -1,0 +1,32 @@
+﻿@page "/"
+
+
+<PageTitle>Home</PageTitle>
+
+<MudContainer>
+    <MudText Typo="Typo.h5" Class="mt-5">Companies: </MudText>
+
+    @foreach (var company in _companies)
+    {
+        <MudNavMenu>
+            <MudNavLink Icon="@Icons.Material.Filled.ArrowRight" Href="@("company/" + company.CompanyId.ToString())">  @company.Name</MudNavLink>
+        </MudNavMenu>
+    }
+</MudContainer>
+
+
+
+
+@code {
+    [Inject] public IDataService DataService { get; set; } = null!;
+
+    private IEnumerable<Company> _companies = [];
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        _companies = await DataService.GetCompanies();
+
+    }
+}

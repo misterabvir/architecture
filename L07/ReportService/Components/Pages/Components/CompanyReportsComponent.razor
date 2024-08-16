@@ -1,0 +1,30 @@
+﻿<MudPaper Class=" my-2" Outlined="true">
+    <MudPaper Class="mud-primary px-2">
+        <MudText Typo="Typo.h6"> REPORTS </MudText>
+    </MudPaper>
+    <MudPaper Class="pa-5">
+
+        @foreach (var report in Reports)
+        {
+            <MudPaper Outlined="true">
+                <MudPaper Class="mud-primary px-2">
+                    <MudText Typo="Typo.h6"> @report.Title  (@report.CreatedDate.Humanize())</MudText>
+                </MudPaper>
+                <CompanyTablesComponent Tables="@report.Tables" />
+            </MudPaper>
+            <MudGrid Class="my-5">
+                <MudItem xs="12" sm="6">
+                    <CompanyChartsComponent Charts="@report.Charts" />
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <CompanyFinansialsComponent Financial="@report.Financials" />
+                </MudItem>
+            </MudGrid>
+        }
+    </MudPaper>
+</MudPaper>
+
+
+@code {
+    [Parameter][EditorRequired] public IEnumerable<Report> Reports { get; set; } = null!;
+}

@@ -1,0 +1,32 @@
+﻿@foreach (var table in Tables)
+{
+    <MudSimpleTable>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in table.Rows)
+            {
+                var data = row.RowData.Split(',');
+                <tr>
+
+                    <td> @row.RowId </td>
+                    @foreach (var d in data)
+                    {
+                        <td> @d </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
+}
+
+
+@code{
+    [Parameter] [EditorRequired] public IEnumerable<ReportTable> Tables { get; set; } = null!;
+}
