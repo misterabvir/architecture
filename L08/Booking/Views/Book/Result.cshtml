@@ -1,0 +1,20 @@
+﻿@model ResultViewModel
+@{
+    ViewData["Title"] = "Cancelled";
+}
+
+<div class="page-wrapper">
+    <div class="p-2">
+        <a href="/" class="link-underline-light text-light home-href"> <i class="bi bi-house-fill"></i>  Home</a>
+    </div>
+
+    <div class=" p-5" style="text-align: center; background-color:#333">
+        <h1 class="@Model.HeaderClass">@Model.Title</h1>
+        <p class="message">
+            @Model.Message
+        </p>
+        <p class="details">
+            @Model.Details
+        </p>
+    </div>
+</div>

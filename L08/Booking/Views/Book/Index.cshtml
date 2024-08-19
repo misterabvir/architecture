@@ -1,0 +1,40 @@
+﻿@model IEnumerable<RestaurantViewModel>
+
+@{
+    ViewData["Title"] = "Restaurants";
+}
+
+
+
+<div id="carousel" class="carousel slide">
+    <div class="carousel-indicators">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="@i" class='@(Model.ElementAt(i).RestaurantId == Model.First().RestaurantId ? "active" : "")' aria-current="true"></button>
+        }
+    </div>
+    <div class="carousel-inner">
+
+        @foreach (var restaurant in Model)
+        {
+            <div class='carousel-item restaurant-item @(restaurant.RestaurantId == Model.First().RestaurantId ? "active" : "")  min-vh-100 min-vw-100"' style="background-image:url(@restaurant.Image);">
+                <div class="carousel-caption d-sm-block restaurant-caption">
+                    <h1 class="display-1">
+                        <a href="restaurant/@restaurant.RestaurantId" class="link-light link-offset-2 link-underline link-underline-opacity-0"> @restaurant.Name</a>
+                    </h1>
+                    <p class="m-0 p-0 small">@restaurant.Address</p>
+                    <p class="m-0 p-0 small">@restaurant.Phone</p>
+                </div>
+            </div>
+        }
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

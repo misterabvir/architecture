@@ -1,0 +1,52 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    background-color: #333;
+}
+
+
+.page-wrapper {
+    background-color: #333;
+}
+
+    .page-wrapper > div > .home-href {
+        text-decoration: none;
+        font-size: 24px;
+    }
+
+    .page-wrapper > div > .simple-header {
+        color: #ccc;
+    }
+    .page-wrapper > div > .fail-header {
+        color: #f99;
+    }
+
+    .page-wrapper > div > .success-header {
+        color: #9f9;
+    }    
+    
+
+    .page-wrapper > div > .message {
+        color: #999;
+        font-size: 18px;
+    }
+
+
+    .page-wrapper > div > .details {
+        color: #888;
+        font-size: 16px;
+    }

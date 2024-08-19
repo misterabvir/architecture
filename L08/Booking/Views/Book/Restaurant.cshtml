@@ -1,0 +1,51 @@
+﻿@model RestaurantViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+
+
+<div class='restaurant-header' style="background-image:url(@Model.Image); background-size:cover; background-position:center; height:120px">
+    <h1 class="display-1 restaurant-title"><a href="/"><i class="bi bi-arrow-left text-light"></i></a> @Model.Name </h1>
+    <a href="https://www.google.com/maps/search/@(Model.Address)" target="_blank" class="m-0 p-0 small d-block restaurant-address"><i class="bi bi-geo-alt-fill text-danger"></i></a>
+    <a href="tel:@Model.Phone" class="m-0 p-0 small d-block restaurant-phone"><i class="bi bi-telephone-fill text-success"></i></a>
+</div>
+
+
+
+<div id="carousel" class="carousel slide">
+    <div class="carousel-indicators">
+
+        @for (int i = 0; i < Model.Tables.Count; i++)
+        {
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="@i" class="@(Model.Tables.ElementAt(i).TableId ==  Model.Tables.First().TableId ? "active" : "")" aria-current="true"></button>
+        }
+
+    </div>
+    <div class="carousel-inner">
+
+        @foreach (var table in Model.Tables)
+        {
+            <div class='carousel-item table-item @(table.TableId ==  Model.Tables.First().TableId ? "active" : "")' style="height:450px; width:100%; background-image:url(@table.Image);">
+                <div class="carousel-caption d-sm-block table-caption">
+                    <h1 class="display-1">
+                        <a href="tables/@table.TableId" class="link-light link-offset-2 link-underline link-underline-opacity-0"> @table.Location</a>
+                    </h1>
+                    <p class ="m-0 p-0 small">For @table.Capacity guests</p>
+                    <p class="m-0 p-0 small">number: @table.TableNumber</p>
+
+                </div>
+            </div>
+        }
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

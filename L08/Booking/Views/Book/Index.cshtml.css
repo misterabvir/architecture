@@ -1,0 +1,12 @@
+﻿.restaurant-item {
+    background-size: cover;
+    background-position: center;
+}
+
+.restaurant-caption {
+    background-color: rgba(10,10,10,0.4);
+}
+.carousel-caption {
+    top: 35%;
+    bottom: auto;
+}

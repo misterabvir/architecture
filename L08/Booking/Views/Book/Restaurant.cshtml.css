@@ -1,0 +1,39 @@
+﻿.restaurant-header {
+   
+   position: relative;
+   filter:blur(0.8px)
+}
+
+.restaurant-address {
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+    text-shadow:  rgb(0, 0, 0) 0 0 2px, rgb(241, 138, 181) 0 0 2px;
+}
+
+.restaurant-phone {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    text-shadow: rgb(0, 0, 0) 0 0 2px, rgb(20, 190, 162) 0 0 3px;
+}
+
+.restaurant-title {
+    color: white;
+    padding: 10px;
+    text-shadow: rgb(0, 0, 0) 0 0 5px;
+    margin:0;
+}
+.carousel-caption {
+    top: 35%;
+    bottom: auto;
+}
+
+.table-item {
+    background-size: cover;
+    background-position: center;
+}
+
+.table-caption {
+    background-color: rgba(10,10,10,0.4);
+}

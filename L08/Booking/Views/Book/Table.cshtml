@@ -1,0 +1,48 @@
+﻿@model ReservationViewModel
+
+@{
+    ViewData["Title"] = Model.Table!.RestaurantName + " - " + Model.Table.Location + " - " + Model.Table.TableNumber;
+}
+
+<div class='table-header' style="background-image:url(@Model.Table.Image); background-size:cover; background-position:center; height:120px">
+    <h1 class="display-3 table-title"><a href="/"><i class="bi bi-arrow-left text-light"></i></a> @(Model.Table.RestaurantName + " - " + Model.Table.Location + " - " + Model.Table.TableNumber) </h1>
+</div>
+
+
+
+<div class="d-flex justify-content-center m-0 p-0" style="background-color:#333;">
+    <form asp-action="Reserving" asp-controller="Book" class="mt-3">
+        <input hidden="hidden" type="number" class="form-control" name="TableId" value="@Model.Table.TableId" />
+        <div class="error-message">
+            @Html.ValidationSummary()
+        </div>
+        
+        
+        <div class="form-floating mb-3">
+            <input type="date" id="date" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" name="ReservationDate" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+            <label for="date">Date reserving</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="number" min="1" step="1" max="@Model.Table.Capacity" value="@Model.Table.Capacity" class="form-control" name="GuestCount">
+            <label for="date">Number of guest</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="CustomerName" placeholder="type your name">
+            <label for="date">Customer name</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="tel" class="form-control" name="CustomerPhone" placeholder="type your phone">
+            <label for="date">Customer phone</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="tel" class="form-control" name="CustomerEmail" placeholder="type your email">
+            <label for="date">Customer email</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Reserve</button>
+    </form>
+
+</div>

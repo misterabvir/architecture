@@ -1,0 +1,50 @@
+version: '3.4'
+
+services:
+  booking-web:
+    image: ${DOCKER_REGISTRY-}booking-web
+    container_name: booking-web
+    build:
+      context: .
+      dockerfile: Booking/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORT: 8080
+      ASPNETCORE_HTTPS_PORTS: 8081
+      ConnectionStrings__DbConnection: ${DB_CONNECTION}
+      Settings__Application__BaseAddress: ${SETTINGS_APPLICATION}
+      Settings__Emails__Host: ${SETTINGS_EMAIL_HOST}
+      Settings__Emails__Port: ${SETTINGS_EMAIL_PORT}
+      Settings__Emails__Username: ${SETTINGS_EMAIL_USERNAME}
+      Settings__Emails__Address: ${SETTINGS_EMAIL_ADDRESS}
+      Settings__Emails__Password: ${SETTINGS_EMAIL_PASSWORD}
+
+    ports:
+      - "10001:8080"
+      - "10000:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    links:
+      - "booking-db:booking-db"
+      - "booking-smtp:booking-smtp"
+
+    
+  booking-db:    
+    image: mysql
+    container_name: booking-db
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./containers/user_management_db:/var/lib/mysql
+
+  booking-smtp:
+    image: haravich/fake-smtp-server
+    container_name: booking-smtp
+    restart: always
+    ports:
+      - "12025:1025"
+      - "12080:1080"
