@@ -1,0 +1,46 @@
+services:
+  cloud-service-api:
+    image: ${DOCKER_REGISTRY-}cloud-service
+    container_name: cloud-service-api
+    build:
+      context: .
+      dockerfile: src/CloudService.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__DbConnection=${DB_CONNECTION}
+      - ConnectionStrings__CacheConnection=${CACHE_CONNECTION}
+      - Settings__Token__Secret=${TOKEN_SECRET}
+      - Settings__Token__Issuer=${TOKEN_ISSUER}
+      - Settings__Token__Audience=${TOKEN_CLIENT}
+    ports:
+      - "10001:8080"
+      - "10000:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    links:
+      - cloud-service-db:cloud-service-db
+      - cloud-service-cache:cloud-service-cache
+  
+  cloud-service-db:
+    image: postgres
+    container_name: cloud-service-db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST_AUTH_METHOD=${POSTGRES_HOST_AUTH_METHOD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./containers/database:/var/lib/postgresql/data
+      
+  cloud-service-cache:
+    image: redis
+    container_name: cloud-service-cache
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./containers/cache:/usr/local/etc/redis

@@ -1,0 +1,69 @@
+
+# GET ALL SETUPS USER HAS
+GET https://{{host}}/setups
+Authorization: Bearer {{token}}
+###
+
+# CREATE SETUP
+POST https://{{host}}/setups
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{   
+  "cpuId": "5936138d-2118-4425-a199-d57d587382ee",
+  "ramId": "8d865fee-f704-490a-81a1-bc82a81fe12b",
+  "romId": "74e656d7-5b28-4d63-b335-0caf9833b2a6",
+  "ipId": "9b5ee8c4-bb5c-4181-8fb9-f05f5087b2fd",
+  "osId": "f5306e60-4c52-4579-8d4e-0eb350be4433"
+}
+###
+
+# UPDATE SETUP
+PUT https://{{host}}/setups
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{   
+  "SetupId": "4792becb-1b20-49e6-890f-442988206b40", 
+  "cpuId": "5936138d-2118-4425-a199-d57d587382ee",
+  "ramId": "8d865fee-f704-490a-81a1-bc82a81fe12b",
+  "romId": "74e656d7-5b28-4d63-b335-0caf9833b2a6",
+  "ipId": "9b5ee8c4-bb5c-4181-8fb9-f05f5087b2fd",
+  "osId": "f5306e60-4c52-4579-8d4e-0eb350be4433"
+}
+###
+
+# RUN SETUP
+PUT https://{{host}}/setups/run
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{   
+  "SetupId": "4792becb-1b20-49e6-890f-442988206b40"
+}
+###
+
+# STOP SETUP
+PUT https://{{host}}/setups/stop
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{   
+  "SetupId": "3f2fbbc6-10fb-4bb9-affc-98f6ba864b85"
+}
+###
+
+# GET BY ID SETUP
+GET https://{{host}}/setups/4792becb-1b20-49e6-890f-442988206b40
+Authorization: Bearer {{token}}
+###
+
+# REMOVE SETUP
+DELETE https://{{host}}/setups
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{   
+  "SetupId": "4792becb-1b20-49e6-890f-442988206b40"
+}
+###

@@ -1,0 +1,19 @@
+# CPU
+GET https://{{host}}/devices/all-cpu
+###
+
+# RAM
+GET https://{{host}}/devices/all-ram
+###
+
+# ROM
+GET https://{{host}}/devices/all-rom
+###
+
+# IP
+GET https://{{host}}/devices/all-ip
+###
+
+# OS
+GET https://{{host}}/devices/all-os
+###

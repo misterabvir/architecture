@@ -1,0 +1,21 @@
+
+# REGISTER
+POST https://{{host}}/users/register
+Content-Type: application/json
+
+{
+    "username" : "{{username}}",
+    "password" : "{{password}}"
+}
+
+###
+
+# LOGIN
+POST https://{{host}}/users/login
+Content-Type: application/json
+
+{
+    "username" : "{{username}}",
+    "password" : "{{password}}"
+}
+###
