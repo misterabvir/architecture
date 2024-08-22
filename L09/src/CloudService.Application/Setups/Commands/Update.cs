@@ -3,7 +3,6 @@ using CloudService.Application.Exceptions;
 using CloudService.Domain;
 using FluentValidation;
 using MediatR;
-using System.Runtime.Intrinsics.Arm;
 
 namespace CloudService.Application.Setups.Commands;
 
@@ -33,7 +32,7 @@ public class Update
         {
             await unitOfWork.BeginTransactionAsync(cancellationToken);
 
-            var user = await unitOfWork.Users.GetByIdAsync(command.UserId, isTrack: true, includeOrderDetails: true, cancellationToken)
+            var user = await unitOfWork.Users.GetByIdAsync(command.UserId, cancellationToken)
                 ?? throw new NotFoundException("User not found");
 
             var setup = user.Setups.FirstOrDefault(c => c.SetupId == command.SetupId)
@@ -76,7 +75,6 @@ public class Update
 
             setup.Update(Status.Offline);
 
-
             try
             {
                 await unitOfWork.Users.UpdateAsync(user, cancellationToken);
@@ -85,7 +83,7 @@ public class Update
 
                 await unitOfWork.CommitTransactionAsync(cancellationToken);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
 
                 await unitOfWork.RollbackTransactionAsync(cancellationToken);

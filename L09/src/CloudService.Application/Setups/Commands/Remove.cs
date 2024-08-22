@@ -27,7 +27,7 @@ public class Remove
         {
             await unitOfWork.BeginTransactionAsync(cancellationToken);
 
-            var user = await unitOfWork.Users.GetByIdAsync(command.UserId, isTrack: true, includeOrderDetails: true, cancellationToken)
+            var user = await unitOfWork.Users.GetByIdAsync(command.UserId, cancellationToken)
                 ?? throw new NotFoundException("User not found");
 
             var configuration = user.Setups.FirstOrDefault(c => c.SetupId == command.ConfigurationId)

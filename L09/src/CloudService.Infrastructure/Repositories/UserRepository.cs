@@ -17,9 +17,11 @@ internal class UserRepository(CloudServiceDbContext context) : IUserRepository
         return context.Users.AsNoTracking().AnyAsync(u => u.Username == username, cancellationToken: cancellationToken);
     }
 
-    public async Task<User?> GetByIdAsync(Guid userId, bool isTrack = false, bool includeOrderDetails = false, CancellationToken cancellationToken = default)
+    public async Task<User?> GetByIdAsync(Guid userId, CancellationToken cancellationToken = default)
     {
-        return await  context.Users.AsNoTracking().Where(u => u.UserId == userId).Include(u => u.Setups).ThenInclude(o => o.Os)
+        return await  context.Users.AsNoTracking()
+            .Where(u => u.UserId == userId)
+            .Include(u => u.Setups).ThenInclude(o => o.Os)
             .Include(u => u.Setups).ThenInclude(o => o.Ip)
             .Include(u => u.Setups).ThenInclude(o => o.Ram)
             .Include(u => u.Setups).ThenInclude(o => o.Rom)

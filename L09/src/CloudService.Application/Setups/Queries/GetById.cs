@@ -25,7 +25,7 @@ public class GetById
     {
         public async Task<Setup> Handle(Query command, CancellationToken cancellationToken)
         {
-            var user = await unitOfWork.Users.GetByIdAsync(command.UserId, isTrack: true, includeOrderDetails: true, cancellationToken)
+            var user = await unitOfWork.Users.GetByIdAsync(command.UserId, cancellationToken)
                 ?? throw new NotFoundException("User not found");
 
             var configuration = user.Setups.FirstOrDefault(c => c.SetupId == command.ConfigurationId)

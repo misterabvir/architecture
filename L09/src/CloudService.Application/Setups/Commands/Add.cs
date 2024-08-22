@@ -35,7 +35,7 @@ public class Add
         {
             await unitOfWork.BeginTransactionAsync(cancellationToken);
 
-            var user = await unitOfWork.Users.GetByIdAsync(command.UserId, isTrack: true, includeOrderDetails: true, cancellationToken)
+            var user = await unitOfWork.Users.GetByIdAsync(command.UserId, cancellationToken)
                 ?? throw new NotFoundException("User not found");
                    
             var cpu = await unitOfWork.Devices.GetCpuById(command.CpuId, cancellationToken)

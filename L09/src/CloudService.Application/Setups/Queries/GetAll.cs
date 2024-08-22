@@ -24,7 +24,7 @@ public class GetAll
         public async Task<List<Setup>> Handle(Query query, CancellationToken cancellationToken)
         {
            
-            var user = await unitOfWork.Users.GetByIdAsync(query.UserId, isTrack: false, includeOrderDetails: true, cancellationToken)
+            var user = await unitOfWork.Users.GetByIdAsync(query.UserId, cancellationToken)
                 ?? throw new NotFoundException("User not found");
 
             return user.Setups;            

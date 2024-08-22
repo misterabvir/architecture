@@ -29,6 +29,7 @@ public static class DependencyInjection
         services.AddDbContext<CloudServiceDbContext>(options => {
             options.UseNpgsql(connectionString);
             options.UseSnakeCaseNamingConvention();
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         });
         return services;
     }
