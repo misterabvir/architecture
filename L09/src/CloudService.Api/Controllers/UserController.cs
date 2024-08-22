@@ -11,7 +11,7 @@ public class UserController(ISender sender) : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(Users.Requests.Register request)
     {
-        var command = new Application.Users.Commands.Register.Command(request.Username, request.Password);
+        var command = request.ToCommand();
         var token = await sender.Send(command);       
         return Ok(new Users.Responses.Token(token));
     }
@@ -19,7 +19,7 @@ public class UserController(ISender sender) : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login(Users.Requests.Login request)
     {
-        var query = new Application.Users.Queries.Login.Query(request.Username, request.Password);
+        var query = request.ToQuery();
         var token = await sender.Send(query);       
         return Ok(new Users.Responses.Token(token));
     }

@@ -27,7 +27,7 @@ public class GetAll
             var user = await unitOfWork.Users.GetByIdAsync(query.UserId, isTrack: false, includeOrderDetails: true, cancellationToken)
                 ?? throw new NotFoundException("User not found");
 
-            return user.Configs;            
+            return user.Setups;            
         }
     }
 }

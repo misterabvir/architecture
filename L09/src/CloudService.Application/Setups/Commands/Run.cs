@@ -30,12 +30,14 @@ public class Run
             var user = await unitOfWork.Users.GetByIdAsync(command.UserId, isTrack: true, includeOrderDetails: true, cancellationToken)
                 ?? throw new NotFoundException("User not found");
 
-            var configuration = user.Configs.FirstOrDefault(c => c.SetupId == command.ConfigurationId)
+            var configuration = user.Setups.FirstOrDefault(c => c.SetupId == command.ConfigurationId)
                 ?? throw new NotFoundException("Configuration not found");
 
             configuration.Update(Status.Online);
             try
             {
+                await unitOfWork.Users.UpdateAsync(user, cancellationToken);
+
                 await unitOfWork.SaveChangesAsync(cancellationToken);
 
                 await unitOfWork.CommitTransactionAsync(cancellationToken);

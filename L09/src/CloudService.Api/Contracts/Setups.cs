@@ -2,7 +2,7 @@ using CloudService.Domain;
 
 namespace CloudService.Api.Contracts;
 
-public static class Setups
+public static partial class Setups
 {
     public static Application.Setups.Commands.Add.Command ToCommand(this Requests.Create request, Guid userId) =>
     new(userId, request.CpuId, request.RamId, request.RomId, request.IpId, request.OsId);
@@ -47,20 +47,4 @@ public static class Setups
 
     public static List<Responses.Setup> FromDomain(this IEnumerable<Setup> configurations) =>
         configurations.Select(FromDomain).ToList();
-
-
-    public static class Requests
-    {
-        public record Create(Guid CpuId, Guid RamId, Guid RomId, Guid IpId, Guid OsId);
-        public record Update(Guid SetupId, Guid CpuId, Guid RamId, Guid RomId, Guid IpId, Guid OsId);
-        public record Remove(Guid SetupId);
-        public record Run(Guid SetupId);
-        public record Stop(Guid SetupId);
-    }
-
-    public static class Responses
-    {
-        public record Setup(Guid SetupId, List<Device> Devices, decimal TotalPrice, string Status, DateTime CreatedAt, DateTime UpdatedAt);
-        public record Device(string Name, decimal Price);
-    }
 }

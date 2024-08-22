@@ -30,10 +30,10 @@ public class Remove
             var user = await unitOfWork.Users.GetByIdAsync(command.UserId, isTrack: true, includeOrderDetails: true, cancellationToken)
                 ?? throw new NotFoundException("User not found");
 
-            var configuration = user.Configs.FirstOrDefault(c => c.SetupId == command.ConfigurationId)
+            var configuration = user.Setups.FirstOrDefault(c => c.SetupId == command.ConfigurationId)
                 ?? throw new NotFoundException("Configuration not found");
 
-            user.Configs.Remove(configuration);
+            user.Setups.Remove(configuration);
             try
             {
                 await unitOfWork.SaveChangesAsync(cancellationToken);

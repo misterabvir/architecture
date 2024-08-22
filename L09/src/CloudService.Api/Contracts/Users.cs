@@ -1,17 +1,10 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace CloudService.Api.Contracts;
 
-public static class Users
+public static partial class Users
 {
-    public static class Responses
-    {
-        public record Token(string Value);
-    }
+    public static Application.Users.Commands.Register.Command ToCommand(this Requests.Register request)
+        => new(request.Username, request.Password);
 
-    public static class Requests
-    {
-        public record Login([Required] string Username, [Required] string Password);
-        public record Register([Required] string Username, [Required] string Password);
-    }
+    public static Application.Users.Queries.Login.Query ToQuery(this Requests.Login request)
+        => new(request.Username, request.Password);
 }

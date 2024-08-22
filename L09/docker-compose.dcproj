@@ -13,5 +13,10 @@
     <None Include=".env" />
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="https\devices.http" />
+    <None Include="https\http-client.env.json" />
+    <None Include="https\local.env" />
+    <None Include="https\setups.http" />
+    <None Include="https\users.http" />
   </ItemGroup>
 </Project>

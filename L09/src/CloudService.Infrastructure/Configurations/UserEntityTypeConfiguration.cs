@@ -13,7 +13,7 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.UserId).HasColumnName("user_id").ValueGeneratedNever();
         builder.Property(u => u.Username).HasColumnName("username").HasMaxLength(50).IsRequired();
         builder.Property(u => u.Password).HasColumnName("password").HasMaxLength(255).IsRequired();
-        builder.HasMany(u => u.Configs).WithOne().HasForeignKey(c => c.UserId).IsRequired();
+        builder.HasMany(u => u.Setups).WithOne().HasForeignKey(c => c.UserId).IsRequired();
 
         builder.HasIndex(u => u.Username, "idx_users_username").IsUnique();
         builder.HasIndex(u => u.UserId, "idx_users_id").IsUnique();

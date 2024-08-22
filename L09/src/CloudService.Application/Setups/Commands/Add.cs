@@ -65,7 +65,7 @@ public class Add
             
             try
             {
-                user.Configs.Add(configuration);
+                user.Setups.Add(configuration);
 
                 await unitOfWork.SaveChangesAsync(cancellationToken);
 

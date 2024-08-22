@@ -28,8 +28,6 @@ internal class UnitOfWork(
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var result = await context.SaveChangesAsync(cancellationToken);
-        await Users.ClearCacheAsync(cancellationToken);
-        return result;
+        return await context.SaveChangesAsync(cancellationToken);
     }
 }

@@ -24,13 +24,19 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {   
-  "SetupId": "4792becb-1b20-49e6-890f-442988206b40", 
+  "setupId": "6166c35a-e449-46a6-90ab-a57b1c4eba71", 
   "cpuId": "5936138d-2118-4425-a199-d57d587382ee",
   "ramId": "8d865fee-f704-490a-81a1-bc82a81fe12b",
   "romId": "74e656d7-5b28-4d63-b335-0caf9833b2a6",
   "ipId": "9b5ee8c4-bb5c-4181-8fb9-f05f5087b2fd",
   "osId": "f5306e60-4c52-4579-8d4e-0eb350be4433"
 }
+#### "setupId": "..." -> required
+#### "cpuId": "..." -> optional
+#### "ramId": "..." -> optional
+#### "romId": "..." -> optional
+#### "ipId": "..." -> optional
+#### "osId": "..." -> optional
 ###
 
 # RUN SETUP
@@ -39,7 +45,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {   
-  "SetupId": "4792becb-1b20-49e6-890f-442988206b40"
+  "setupId": "6166c35a-e449-46a6-90ab-a57b1c4eba71"
 }
 ###
 
@@ -49,12 +55,12 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {   
-  "SetupId": "3f2fbbc6-10fb-4bb9-affc-98f6ba864b85"
+  "setupId": "6166c35a-e449-46a6-90ab-a57b1c4eba71"
 }
 ###
 
 # GET BY ID SETUP
-GET https://{{host}}/setups/4792becb-1b20-49e6-890f-442988206b40
+GET https://{{host}}/setups/6166c35a-e449-46a6-90ab-a57b1c4eba71
 Authorization: Bearer {{token}}
 ###
 
@@ -64,6 +70,6 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {   
-  "SetupId": "4792becb-1b20-49e6-890f-442988206b40"
+  "setupId": "4792becb-1b20-49e6-890f-442988206b40"
 }
 ###

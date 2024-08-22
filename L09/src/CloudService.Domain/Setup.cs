@@ -28,7 +28,6 @@ public class Setup
         if (CpuId != cpu.CpuId)
         {
             CpuId = cpu.CpuId;
-            // Cpu = cpu;
             UpdatedAt = DateTime.UtcNow;
         }
 
@@ -39,7 +38,6 @@ public class Setup
         if (RamId != ram.RamId)
         {
             RamId = ram.RamId;
-            // Ram = ram;
             UpdatedAt = DateTime.UtcNow;
         }
     }
@@ -49,7 +47,6 @@ public class Setup
         if (RomId != rom.RomId)
         {
             RomId = rom.RomId;
-            // Rom = rom;
             UpdatedAt = DateTime.UtcNow;
         }
 
@@ -60,7 +57,6 @@ public class Setup
         if (IpId != ip.IpId)
         {
             IpId = ip.IpId;
-            // Ip = ip;
             UpdatedAt = DateTime.UtcNow;
         }
     }
@@ -70,7 +66,6 @@ public class Setup
         if (OsId != os.OsId)
         {
             OsId = os.OsId;
-            // Os = os;
             UpdatedAt = DateTime.UtcNow;
         }
     }
