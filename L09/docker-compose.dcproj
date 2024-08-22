@@ -2,12 +2,13 @@
 <Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
+    <DockerComposeProjectName>cloud-service</DockerComposeProjectName>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>546f8747-5edb-4473-b56b-08001d6cf6fa</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>cloudservice.api</DockerServiceName>
+    <DockerServiceName>cloud-service-api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include=".env" />

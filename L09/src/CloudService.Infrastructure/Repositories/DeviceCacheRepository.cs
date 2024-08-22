@@ -1,6 +1,6 @@
 using CloudService.Application.Base.Repositories;
 using CloudService.Domain;
-using CloudService.Infrastructure.Base;
+using CloudService.Infrastructure.Extensions;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace CloudService.Infrastructure.Repositories;

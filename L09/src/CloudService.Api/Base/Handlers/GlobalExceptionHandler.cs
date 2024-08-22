@@ -1,6 +1,5 @@
 using System.Security.Authentication;
 using CloudService.Application.Exceptions;
-using CloudService.Domain;
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +13,7 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> log
     Exception exception,
     CancellationToken cancellationToken)
     {
-        logger.LogError(
-            exception, "Exception occurred: {Message}", exception.Message);
+        logger.LogError(exception, "Exception occurred: {Message}", exception.Message);
 
         var problemDetails = new ProblemDetails
         {
@@ -27,8 +25,7 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> log
 
         httpContext.Response.StatusCode = problemDetails.Status.Value;
 
-        await httpContext.Response
-            .WriteAsJsonAsync(problemDetails, cancellationToken);
+        await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 
         return true;
     }

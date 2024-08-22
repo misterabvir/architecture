@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace CloudService.Infrastructure.Base;
+namespace CloudService.Infrastructure.Extensions;
 
 internal static class CacheExtensions
 {

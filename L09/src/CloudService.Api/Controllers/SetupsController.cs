@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using CloudService.Api.Contracts;
+using CloudService.Application.Setups.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +14,15 @@ public class SetupsController(ISender sender) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetSetups()
     {
-        var query = new Application.Setups.Queries.GetAll.Query(GetUserId());
+        var query = new GetAll.Query(GetUserId());
         var configs = await sender.Send(query);
         return Ok(Setups.FromDomain(configs));
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetSetups(Guid id)
+    public async Task<IActionResult> GetSetup(Guid id)
     {
-        var query = new Application.Setups.Queries.GetById.Query(GetUserId(), id);
+        var query = new GetById.Query(GetUserId(), id);
         var config = await sender.Send(query);
         return Ok(Setups.FromDomain(config));
     }

@@ -1,7 +1,6 @@
-using System.Text.Json;
 using CloudService.Application.Base.Repositories;
 using CloudService.Domain;
-using CloudService.Infrastructure.Base;
+using CloudService.Infrastructure.Extensions;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace CloudService.Infrastructure.Repositories;
@@ -11,8 +10,6 @@ internal class UserCacheRepository(UserRepository decorated, IDistributedCache c
     public async Task AddAsync(User user, CancellationToken cancellationToken = default)
     {
         await cache.RemoveAsync($"user-{user.Username}-exist", cancellationToken);
-        await cache.RemoveAsync($"user-{user.Username}-instance", cancellationToken);
-        await cache.RemoveAsync($"user-{user.UserId}-instance", cancellationToken);
         await decorated.AddAsync(user, cancellationToken);
     }
 
