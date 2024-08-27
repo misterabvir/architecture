@@ -6,4 +6,4 @@
 - Orm: Entity Framework
 
 
-![](/assets/result.gif)
+![/assets/result.gif](https://github.com/misterabvir/architecture/blob/main/L10/assets/result.gif)
