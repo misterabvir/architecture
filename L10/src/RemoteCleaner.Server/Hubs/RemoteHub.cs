@@ -3,12 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using RemoteCleaner.Server.Application;
 using RemoteCleaner.Server.Domain;
 using RemoteCleaner.Server.Infrastructure.Persistence;
+using RemoteCleaner.Server.Infrastructure.Repositories;
 using System;
 using System.Runtime.InteropServices;
 
 namespace RemoteCleaner.Server.Hubs;
 
-public partial class RemoteHub(RemoteCleanerDbContext context, IRobotRemote remote) : Hub
+public partial class RemoteHub(IUnitOfWork unitOfWork, IRobotRemote remote) : Hub
 {
     public override async Task OnConnectedAsync()
     {
@@ -22,9 +23,9 @@ public partial class RemoteHub(RemoteCleanerDbContext context, IRobotRemote remo
         remote.OnProgressChanged += ProgressChanged;
         remote.OnChargeChanged += ChargeChanged;       
 
-        var station = await context.Stations.FirstAsync();
+        var station = await unitOfWork.Stations.GetStationAsync();
 
-        var room = await context.Rooms.FirstOrDefaultAsync(r => r.RoomId == roomId);
+        var room = await unitOfWork.Rooms.GetRoomByIdAsync(roomId);
         if (room is null)
             return;
 
@@ -69,7 +70,7 @@ public partial class RemoteHub(RemoteCleanerDbContext context, IRobotRemote remo
         });
 
         room.CleanedAt = DateTime.UtcNow;
-        await context.SaveChangesAsync();
+        await unitOfWork.SaveChangesAsync();
 
         await Clients.All.SendAsync("Completed");
 

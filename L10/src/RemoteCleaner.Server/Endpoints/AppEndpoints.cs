@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RemoteCleaner.Server.Infrastructure.Persistence;
+﻿using RemoteCleaner.Server.Infrastructure.Repositories;
 
 namespace RemoteCleaner.Server.Endpoints;
 
@@ -7,18 +6,18 @@ public static class AppEndpoints
 {
     public static void MapAppEndpoint(this IEndpointRouteBuilder routes)
     {
-        routes.MapGet("/log", async (RemoteCleanerDbContext context) =>
+        routes.MapGet("/log", async (IUnitOfWork unitOfWork) =>
         {
-            return Results.Ok(await context.Stations.AsNoTracking().SelectMany(s => s.Logs).OrderByDescending(l => l.Time).ToListAsync());
+            return Results.Ok(await unitOfWork.Stations.GertLogsAsync());
         });
 
-        routes.MapGet("/rooms", async (RemoteCleanerDbContext context) =>
+        routes.MapGet("/rooms", async (IUnitOfWork unitOfWork) =>
         {
-            return Results.Ok(await context.Rooms.AsNoTracking().ToListAsync());
+            return Results.Ok(await unitOfWork.Rooms.GetRoomsAsync());
         });
-        routes.MapGet("station", async (RemoteCleanerDbContext context) =>
+        routes.MapGet("station", async (IUnitOfWork unitOfWork) =>
         {
-            return Results.Ok(await context.Stations.AsNoTracking().FirstAsync());
+            return Results.Ok(await unitOfWork.Stations.GetStationAsync());
         });
     }
 
