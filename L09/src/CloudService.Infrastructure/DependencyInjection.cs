@@ -68,7 +68,7 @@ public static class DependencyInjection
         services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = connectionCacheString;
-            options.InstanceName = "cloud-service";
+            options.InstanceName = "cloud-service#";
             options.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions
             {
                 AbortOnConnectFail = false,

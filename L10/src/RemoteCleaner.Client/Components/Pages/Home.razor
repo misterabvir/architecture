@@ -1,0 +1,51 @@
+﻿@page "/"
+
+@if (_station is not null)
+{
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.subtitle1">name: @_station.Name</MudText>
+                <MudText Typo="Typo.subtitle2">serial: @_station.SerialNumber</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Secondary" OnClick="GetLogs"></MudIconButton>
+                <MudIcon Icon="@Icons.Material.Filled.BatteryFull" />
+                <MudText Typo="Typo.caption">@((_charge / 100).ToString("P"))</MudText>
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudSelect T="int" Label="Rooms" Variant="Variant.Text" @bind-value="_selectedRoomId" Class="mb-4">
+                @foreach (var room in _rooms)
+                {
+                    <MudSelectItem T="int" Value="@room.RoomId">
+                        <MudText Typo="Typo.h6" Inline="true">@room.Name</MudText>
+                        <MudText Typo="Typo.caption" Class="ps-5"> @room.CleanedAt.Humanize()</MudText>
+                    </MudSelectItem>
+                }
+            </MudSelect>
+            @if (_progressMessage is not null)
+            {
+                <MudText Typo="Typo.body2">@_progressMessage</MudText>
+                <MudProgressLinear Color="Color.Secondary" Value="@(_progress)" Class="my-7" Min="0.00" Max="1.00"  />
+            }
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@_disabled" OnClick="StartCleaning">Start</MudButton>
+        </MudCardActions>
+    </MudCard>
+
+    @if (_logs.Count > 0)
+    {
+        <MudExpansionPanel Text="Logs" style="height:300px;overflow: auto;">
+            @foreach (var log in _logs)
+            {
+
+                <MudText Typo="Typo.body1">@log.Message</MudText>
+                <MudText Typo="Typo.caption" Class="ps-5"> @log.Time.Humanize()</MudText>
+            }
+        </MudExpansionPanel>
+
+    }
+
+}
