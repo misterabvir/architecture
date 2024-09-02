@@ -1,0 +1,118 @@
+﻿@page "/remote"
+<MudPaper MaxWidth="600">
+    <MudPaper Class="d-flex  justify-center">
+        <MudExpansionPanels MultiExpansion="true">
+            <MudExpansionPanel Text="Add Robot">
+                <EditForm Model="@addRobotModel" OnValidSubmit="OnValidAddRobotSubmit">
+                    <MudTextField Label="Model" Class="mt-3 d-inline-block"
+                                  @bind-Value="addRobotModel.Model" For="@(() => addRobotModel.Model)" />
+                    <MudTextField Label="Speed" Class="mt-3 d-inline-block"
+                                  @bind-Value="addRobotModel.Speed" For="@(() => addRobotModel.Speed)" InputType="InputType.Number" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Add" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="d-inline-block pa-4" />
+                </EditForm>
+            </MudExpansionPanel>
+            <MudExpansionPanel Text="Add Room">
+                <EditForm Model="@addRoomModel" OnValidSubmit="OnValidAddRoomSubmit">
+                    <MudTextField Label="Title" Class="mt-3 d-inline-block"
+                                  @bind-Value="addRoomModel.Title" For="@(() => addRoomModel.Title)" />
+                    <MudTextField Label="Area" Class="mt-3 d-inline-block"
+                                  @bind-Value="addRoomModel.Area" For="@(() => addRoomModel.Area)" InputType="InputType.Number" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Add" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="d-inline-block pa-4" />
+                </EditForm>
+            </MudExpansionPanel>
+        </MudExpansionPanels>
+    </MudPaper>
+    @if (UserData is not null)
+    {
+        <MudPaper Class="d-flex justify-center flex-wrap">
+            @foreach (var robot in UserData.Robots)
+            {
+                <RobotView Robot="robot" Rooms="UserData.Rooms" Clean="StartClean" />
+            }
+        </MudPaper>
+    }
+    <MudPaper>
+        <MudButton Variant="Variant.Text" OnClick="GetLogsHandler"> Get logs </MudButton>
+        @if (UserLogs is not null && UserLogs.Any())
+        {
+            <MudTable Striped="true" Items="@(UserLogs.Take(6))" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+                <HeaderContent>
+                    <MudTh>Date</MudTh>
+                    <MudTh>Message</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Date">@context.OccuredAt.Humanize()</MudTd>
+                    <MudTd DataLabel="Message">@context.Message</MudTd>
+                </RowTemplate>
+            </MudTable>
+        }
+    </MudPaper>
+</MudPaper>
+
+@code {
+    [Inject] IRemoteService RemoteService { get; set; } = null!;
+    [Inject] ILogger<RemotePage> Logger { get; set; } = null!;
+    [Inject] INotificationService NotificationService { get; set; } = null!;
+    [Inject] ISnackbar SnackBar { get; set; } = null!;
+    private List<Log>? UserLogs { get; set; }
+    private UserData? UserData { get; set; }
+    private AddRobot addRobotModel { get; set; } = new();
+    private AddRoom addRoomModel { get; set; } = new();
+    protected override async Task OnInitializedAsync()
+    {
+        UserData = await RemoteService.GetData();
+        NotificationService.OnMessageReceived += HandleMessageReceived;
+    }
+
+    private async Task GetLogsHandler()
+    {
+        var logs = await RemoteService.GetLogs();
+        UserLogs = logs?.OrderByDescending(l => l.OccuredAt).ToList();
+    }
+
+    private async void HandleMessageReceived(string message)
+    {
+
+        await InvokeAsync(async () =>
+        {
+            SnackBar.Add(message, Severity.Info);
+            UserData = await RemoteService.GetData();
+            StateHasChanged();
+        });
+    }
+
+
+    private async Task StartClean(StartCleanModel startCleanModel)
+    {
+        var result = await RemoteService.Start(startCleanModel);
+        if (result is not null)
+        {
+            UserData = await RemoteService.GetData();
+        }
+    }
+
+    private async Task OnValidAddRobotSubmit()
+    {
+        var result = await RemoteService.AddRobot(addRobotModel);
+        if (result is not null)
+        {
+            UserData?.Robots.Add(result);
+            StateHasChanged();
+        }
+    }
+
+    private async Task OnValidAddRoomSubmit()
+    {
+        var result = await RemoteService.AddRoom(addRoomModel);
+        if (result is not null)
+        {
+            UserData?.Rooms.Add(result);
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        NotificationService.OnMessageReceived -= HandleMessageReceived;
+    }
+}

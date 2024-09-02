@@ -1,0 +1,67 @@
+﻿@page "/confirm"
+
+<MudPaper Class="d-flex justify-center">
+    <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudGrid>
+            <MudItem xs="12">
+                <MudCard>
+                    <MudCardContent>
+                        <MudTextField Label="Email" Class="mt-3"
+                                      @bind-Value="model.Email" For="@(() => model.Email)" />
+                        <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                                      @bind-Value="model.Code" For="@(() => model.Code)" InputType="InputType.Text" />
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+
+            @if (!_isValid)
+            {
+                <MudItem xs="12">
+                    <MudPaper Class="pa-4 mud-height-full">
+                        <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
+                        <MudText Color="@Color.Error">
+                            <ValidationSummary />
+                        </MudText>
+                    </MudPaper>
+                </MudItem>
+            }
+
+        </MudGrid>
+    </EditForm>
+</MudPaper>
+
+@code {
+    [Inject] IAuthenticationService AuthenticationService { get; set; } = null!;
+    [Inject] Authentication.StateProvider StateProvider { get; set; } = null!;
+    [Inject] private Authentication.Account Account { get; set; } = null!;
+    [Inject] NavigationManager NavigationManager { get; set; } = null!;
+    private ConfirmAccountModel model = new ConfirmAccountModel();
+    private bool _isValid = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await StateProvider.GetAuthenticationStateAsync();
+
+        if (Account.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+
+    private async void OnValidSubmit(EditContext context)
+    {
+        _isValid = true;
+        StateHasChanged();
+
+        var result = await AuthenticationService.Confirm(model);
+        if (result is not null)
+        {
+            await StateProvider.NotifyUserLogIn(result);
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}

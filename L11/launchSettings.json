@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "remote-web-client",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}",
+      "serviceActions": {
+        "remote-web-client": "StartDebugging",
+        "remote-authentication": "StartWithoutDebugging",
+        "remote-cleaner": "StartWithoutDebugging",
+        "remote-cache": "StartWithoutDebugging",
+        "remote-database": "StartWithoutDebugging",
+        "remote-queue": "StartWithoutDebugging",
+        "remote-smtp": "StartWithoutDebugging"
+      }
+    }
+  }
+}

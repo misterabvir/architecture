@@ -1,0 +1,23 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+@code {
+    [Inject] private Authentication.StateProvider StateProvider  { get; set; } = null!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private Authentication.Account Account { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await StateProvider.GetAuthenticationStateAsync();
+
+        if (!Account.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/authorization");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/remote");
+        }
+    }
+}

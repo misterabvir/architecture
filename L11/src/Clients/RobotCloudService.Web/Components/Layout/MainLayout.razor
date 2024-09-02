@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="true" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudText Typo="Typo.h6"> <MudIcon Icon="@Icons.Material.Filled.Android" Color="Color.Success" /> Robot Cloud Service - @Account.Email</MudText>
+    </MudAppBar>
+   
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code{
+    [Inject] Authentication.Account Account { get; set; } = null!;
+}

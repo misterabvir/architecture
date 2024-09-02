@@ -1,0 +1,119 @@
+services:
+    remote-web-client:
+        image: ${DOCKER_REGISTRY-}remote-web-client
+        container_name: remote-web-client
+        build:
+            context: .
+            dockerfile: src/Clients/RobotCloudService.Web/Dockerfile
+        environment:
+            ASPNETCORE_ENVIRONMENT: Development
+            ASPNETCORE_HTTP_PORTS: 8080
+            ASPNETCORE_HTTPS_PORTS: 8081
+            ConnectionStrings__QueueConnection: amqp://user:password@remote-queue:5672
+            Settings__Token__Secret: 4E6C25612548BD7CC111C90260082CF79DAA287184C7EC4B3462A31AED6F44EA
+            Address__Authentication: remote-authentication:8080
+            Address__Remote: remote-cleaner:8080
+        ports:
+            - "13001:8080" 
+            - "13000:8081" 
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+        links:
+            - remote-queue:remote-queue
+            - remote-authentication:remote-authentication
+            - remote-cleaner:remote-cleaner
+
+    remote-authentication:
+        image: ${DOCKER_REGISTRY-}remote-authentication
+        container_name: remote-authentication
+        build:
+            context: .
+            dockerfile: src/Authentications/RobotCloudService.Authentications.Presentation/Dockerfile
+        environment:
+            ASPNETCORE_ENVIRONMENT: Development
+            ASPNETCORE_HTTP_PORTS: 8080
+            ASPNETCORE_HTTPS_PORTS: 8081
+            ConnectionStrings__DbConnection: Server=remote-database;Port=5432;Database=remote_db;User Id=postgres;Password=postgres;
+            ConnectionStrings__CacheConnection: remote-cache:6379
+            ConnectionStrings__QueueConnection: amqp://user:password@remote-queue:5672
+            Settings__Token__Secret: 4E6C25612548BD7CC111C90260082CF79DAA287184C7EC4B3462A31AED6F44EA
+            Settings__Smtp__Host: remote-smtp
+            Settings__Smtp__Port: 1025
+        ports:
+            - "10001:8080" 
+            - "10000:8081" 
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+        links:
+            - remote-database:remote-database
+            - remote-queue:remote-queue
+            - remote-cache:remote-cache
+            - remote-smtp:remote-smtp
+
+    remote-cleaner:
+        image: ${DOCKER_REGISTRY-}remote-cleaner
+        container_name: remote-cleaner
+        build:
+            context: .
+            dockerfile: src/Remotes/RobotCloudService.Remotes.Presentation/Dockerfile
+        environment:
+            ASPNETCORE_ENVIRONMENT: Development
+            ASPNETCORE_HTTP_PORTS: 8080
+            ASPNETCORE_HTTPS_PORTS: 8081
+            ConnectionStrings__DbConnection: Server=remote-database;Port=5432;Database=remote_db;User Id=postgres;Password=postgres;
+            ConnectionStrings__CacheConnection: remote-cache:6379
+            ConnectionStrings__QueueConnection: amqp://user:password@remote-queue:5672
+            Settings__Token__Secret: 4E6C25612548BD7CC111C90260082CF79DAA287184C7EC4B3462A31AED6F44EA
+        ports:
+            - "11001:8080" 
+            - "11000:8081" 
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+        links:
+            - remote-database:remote-database
+            - remote-queue:remote-queue
+            - remote-cache:remote-cache
+
+    remote-database:
+        image: postgres
+        container_name: remote-database
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./containers/database:/var/lib/postgresql/data
+    
+    remote-queue:
+        image: rabbitmq:management
+        container_name: remote-queue
+        ports:
+            - 5672:5672
+            - 15672:15672
+        volumes:
+            - ./containers/queue:/var/lib/rabbitmq
+        environment:
+            RABBITMQ_DEFAULT_USER: user
+            RABBITMQ_DEFAULT_PASS: password
+
+    remote-cache:
+        image: redis:latest
+        container_name: remote-cache
+        restart: always 
+        ports:
+            - 6379:6379
+        volumes:
+            - ./containers/cache:/usr/local/etc/redis
+
+    remote-smtp:
+        image: haravich/fake-smtp-server
+        container_name: remote-smtp
+        restart: always
+        ports:
+          - "12025:1025"
+          - "12080:1080"

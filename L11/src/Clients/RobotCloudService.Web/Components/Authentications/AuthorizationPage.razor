@@ -1,0 +1,28 @@
+﻿@page "/authorization"
+
+
+<PageTitle>authorization</PageTitle>
+
+
+<MudPaper Class="d-flex justify-center">
+    <MudTabs Elevation="4" Rounded="true" Centered="true" Color="@Color.Primary">
+        <MudTabPanel Text="Login"><Login/></MudTabPanel>
+        <MudTabPanel Text="Sign In"><Register/></MudTabPanel>
+    </MudTabs>
+</MudPaper>
+
+@code{
+    [Inject] private Authentication.StateProvider StateProvider { get; set; } = null!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private Authentication.Account Account { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await StateProvider.GetAuthenticationStateAsync();
+
+        if (Account.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}

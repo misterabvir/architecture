@@ -1,0 +1,108 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{62A6FC68-B958-47BD-A170-BB95A2A63133}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotCloudService.Application", "src\RobotCloudService.Application\RobotCloudService.Application.csproj", "{4D6A60A7-E56A-4C56-8628-06F90795BA16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentications", "Authentications", "{BCC74442-2F35-46DF-BEE0-F034AE7B91CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Remotes", "Remotes", "{735406F5-7A1A-4AC5-B311-07ED4C9AAEB7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotCloudService.Authentications.Presentation", "src\Authentications\RobotCloudService.Authentications.Presentation\RobotCloudService.Authentications.Presentation.csproj", "{BF3C014E-366D-45B7-BADC-A0B825E4ACC6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotCloudService.Authentications.Infrastructure", "src\Authentications\RobotCloudService.Authentications.Infrastructure\RobotCloudService.Authentications.Infrastructure.csproj", "{6F0FA19F-3A8E-4637-B28A-C769318965ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotCloudService.Authentications.Application", "src\Authentications\RobotCloudService.Authentications.Application\RobotCloudService.Authentications.Application.csproj", "{0F18EE75-800E-4C32-A91D-60E39FDFAA12}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotCloudService.Remotes.Presentation", "src\Remotes\RobotCloudService.Remotes.Presentation\RobotCloudService.Remotes.Presentation.csproj", "{2C47521D-2B94-4E39-A58A-7EB6CFEF6047}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotCloudService.Remotes.Application", "src\Remotes\RobotCloudService.Remotes.Application\RobotCloudService.Remotes.Application.csproj", "{2D9B2F55-AE87-4E80-9091-5E746D0DDB88}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotCloudService.Remotes.Infrastructure", "src\Remotes\RobotCloudService.Remotes.Infrastructure\RobotCloudService.Remotes.Infrastructure.csproj", "{58B606C1-5F53-4D24-BECC-EA4CEACFA720}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotCloudService.Notifications", "src\RobotCloudService.Notifications\RobotCloudService.Notifications.csproj", "{E1F803DB-3A70-470E-9F44-54FA51F6DCC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{44D5EC9F-F9F0-406F-A018-2026E1FBE8F2}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A8F9FD45-1196-4E31-924C-EB1D74EB9120}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotCloudService.Web", "src\Clients\RobotCloudService.Web\RobotCloudService.Web.csproj", "{9D75585E-263B-4777-8B35-7CD29BCC51CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{DC9F6D17-4234-4122-9B9D-B58B3AE6A377}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD9CFCED-C96A-4DE1-AB01-68A3BE7EC311}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D6A60A7-E56A-4C56-8628-06F90795BA16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D6A60A7-E56A-4C56-8628-06F90795BA16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D6A60A7-E56A-4C56-8628-06F90795BA16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D6A60A7-E56A-4C56-8628-06F90795BA16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3C014E-366D-45B7-BADC-A0B825E4ACC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3C014E-366D-45B7-BADC-A0B825E4ACC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3C014E-366D-45B7-BADC-A0B825E4ACC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3C014E-366D-45B7-BADC-A0B825E4ACC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F0FA19F-3A8E-4637-B28A-C769318965ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F0FA19F-3A8E-4637-B28A-C769318965ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F0FA19F-3A8E-4637-B28A-C769318965ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F0FA19F-3A8E-4637-B28A-C769318965ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F18EE75-800E-4C32-A91D-60E39FDFAA12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F18EE75-800E-4C32-A91D-60E39FDFAA12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F18EE75-800E-4C32-A91D-60E39FDFAA12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F18EE75-800E-4C32-A91D-60E39FDFAA12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C47521D-2B94-4E39-A58A-7EB6CFEF6047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C47521D-2B94-4E39-A58A-7EB6CFEF6047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C47521D-2B94-4E39-A58A-7EB6CFEF6047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C47521D-2B94-4E39-A58A-7EB6CFEF6047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D9B2F55-AE87-4E80-9091-5E746D0DDB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D9B2F55-AE87-4E80-9091-5E746D0DDB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D9B2F55-AE87-4E80-9091-5E746D0DDB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D9B2F55-AE87-4E80-9091-5E746D0DDB88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B606C1-5F53-4D24-BECC-EA4CEACFA720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B606C1-5F53-4D24-BECC-EA4CEACFA720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B606C1-5F53-4D24-BECC-EA4CEACFA720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B606C1-5F53-4D24-BECC-EA4CEACFA720}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1F803DB-3A70-470E-9F44-54FA51F6DCC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1F803DB-3A70-470E-9F44-54FA51F6DCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1F803DB-3A70-470E-9F44-54FA51F6DCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1F803DB-3A70-470E-9F44-54FA51F6DCC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8F9FD45-1196-4E31-924C-EB1D74EB9120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8F9FD45-1196-4E31-924C-EB1D74EB9120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8F9FD45-1196-4E31-924C-EB1D74EB9120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8F9FD45-1196-4E31-924C-EB1D74EB9120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D75585E-263B-4777-8B35-7CD29BCC51CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D75585E-263B-4777-8B35-7CD29BCC51CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D75585E-263B-4777-8B35-7CD29BCC51CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D75585E-263B-4777-8B35-7CD29BCC51CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4D6A60A7-E56A-4C56-8628-06F90795BA16} = {62A6FC68-B958-47BD-A170-BB95A2A63133}
+		{BCC74442-2F35-46DF-BEE0-F034AE7B91CF} = {62A6FC68-B958-47BD-A170-BB95A2A63133}
+		{735406F5-7A1A-4AC5-B311-07ED4C9AAEB7} = {62A6FC68-B958-47BD-A170-BB95A2A63133}
+		{BF3C014E-366D-45B7-BADC-A0B825E4ACC6} = {BCC74442-2F35-46DF-BEE0-F034AE7B91CF}
+		{6F0FA19F-3A8E-4637-B28A-C769318965ED} = {BCC74442-2F35-46DF-BEE0-F034AE7B91CF}
+		{0F18EE75-800E-4C32-A91D-60E39FDFAA12} = {BCC74442-2F35-46DF-BEE0-F034AE7B91CF}
+		{2C47521D-2B94-4E39-A58A-7EB6CFEF6047} = {735406F5-7A1A-4AC5-B311-07ED4C9AAEB7}
+		{2D9B2F55-AE87-4E80-9091-5E746D0DDB88} = {735406F5-7A1A-4AC5-B311-07ED4C9AAEB7}
+		{58B606C1-5F53-4D24-BECC-EA4CEACFA720} = {735406F5-7A1A-4AC5-B311-07ED4C9AAEB7}
+		{E1F803DB-3A70-470E-9F44-54FA51F6DCC2} = {62A6FC68-B958-47BD-A170-BB95A2A63133}
+		{9D75585E-263B-4777-8B35-7CD29BCC51CC} = {DC9F6D17-4234-4122-9B9D-B58B3AE6A377}
+		{DC9F6D17-4234-4122-9B9D-B58B3AE6A377} = {62A6FC68-B958-47BD-A170-BB95A2A63133}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E71FF17-B022-42A0-8AE2-4E567252787A}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,53 @@
+﻿
+<MudCard Outlined="true" Class="ma-4">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">@Robot.Model</MudText>
+            <MudText Typo="Typo.caption">Speed: @Robot.Speed sq.m per minute</MudText>
+            @if (Robot.RobotState != "Idle")
+            {
+                <br />
+                <MudText Typo="Typo.caption">Cleaning: @(Rooms.FirstOrDefault(r => r.RoomId == Robot.RoomId)?.Title)</MudText>
+                <br />
+                <MudText Typo="Typo.caption">Ended: @_time</MudText>
+            }
+
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@(_isBusy ? Icons.Material.Filled.Stop : Icons.Material.Filled.Work)" Color="Color.Default" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudSelect @bind-Value="_selectedRoomId" Disabled="_isBusy" Label="Select room"  AdornmentIcon="@Icons.Material.Filled.ArrowDropDown" AdornmentColor="Color.Primary">
+            @foreach (var room in Rooms)
+            {
+                <MudSelectItem Value="@room.RoomId">@room.Title (area: @room.Area sq.m) last: @room.LastCleanedAt.Humanize()</MudSelectItem>
+            }
+        </MudSelect>
+        <MudButton Disabled="_isBusy" Variant="Variant.Text" Color="Color.Primary" OnClick="OnStartClean">Start Clean</MudButton>
+    </MudCardContent>
+</MudCard>
+
+
+@code {
+    [Parameter][EditorRequired] public Robot Robot { get; set; } = null!;
+    [Parameter][EditorRequired] public List<Room> Rooms { get; set; } = [];
+    [Parameter][EditorRequired] public EventCallback<StartCleanModel> Clean { get; set; }
+    private string _selectedRoomId = string.Empty;
+    private string _time => Robot.CalculatedTimeOfCleaningOver < DateTime.UtcNow ? DateTime.UtcNow.Humanize() : Robot.CalculatedTimeOfCleaningOver.Humanize();
+    private bool _isBusy => Robot.RobotState != "Idle";
+
+    protected override void OnInitialized()
+    {
+        if (Rooms.Any())
+        {
+            
+            _selectedRoomId = Robot.RoomId.All(c => c == '0') ? Rooms.First().RoomId : Robot.RoomId;
+        }
+    }
+
+    private async Task OnStartClean()
+    {
+        await Clean.InvokeAsync(new StartCleanModel() { RobotId = Robot.RobotId, RoomId = _selectedRoomId });
+    }
+}
