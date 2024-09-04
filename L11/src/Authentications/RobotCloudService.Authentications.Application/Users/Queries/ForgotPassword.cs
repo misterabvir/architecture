@@ -30,9 +30,7 @@ public static class ForgotPassword
                 return Error.Forbidden("ForgotPassword.UserNotFound", "User not found");
             }
 
-            var result = await verificationService.SendVerificationCodeAsync(user.UserId, user.Email, cancellationToken);
-
-            return result;
+            return await verificationService.SendVerificationCodeAsync(user.UserId, user.Email, cancellationToken);
         }
     }
 }

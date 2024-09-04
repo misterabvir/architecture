@@ -42,7 +42,7 @@ public static class ResetPassword
             var user = await unitOfWork.Users.GetByEmailAsync(request.Email, cancellationToken);
             if(user is null)
             {
-                return Error.NotFound("ResetPassword.NotFound", "User not found");
+                return Error.NotFound("ResetPassword.UserNotFound", "User not found");
             }
 
             var result = await verificationService.VerifyCodeAsync(user.UserId, request.Code, cancellationToken);

@@ -5,30 +5,30 @@ namespace RobotCloudService.Web.Components.Remotes.Services;
 
 public class RemoteService(IConfiguration configuration, ISendService sendService) : IRemoteService
 {
-    private readonly string _host = configuration["Address:Remote"]!;
+    private readonly string _host = configuration["Address:Api"]!;
 
-    public async Task<Robot?> AddRobot(AddRobot model)
+    public async Task<RobotModel?> AddRobot(AddRobotModel model)
     {
-        return await sendService.Command<Robot>(HttpMethod.Post, $"http://{_host}/robots/add", model);
+        return await sendService.Command<RobotModel>(HttpMethod.Post, $"http://{_host}/robots/add", model);
     }
 
-    public async Task<Room?> AddRoom(AddRoom model)
+    public async Task<RoomModel?> AddRoom(AddRoomModel model)
     {
-        return await sendService.Command<Room>(HttpMethod.Post, $"http://{_host}/rooms/add", model);
+        return await sendService.Command<RoomModel>(HttpMethod.Post, $"http://{_host}/rooms/add", model);
     }
-    public async Task<List<Log>?> GetLogs()
+    public async Task<List<LogModel>?> GetLogs()
     {
-        return await sendService.Query<List<Log>>($"http://{_host}/users/logs");
-    }
-
-    public async Task<UserData?> GetData()
-    {
-        return await sendService.Query<UserData>($"http://{_host}/users/data");
+        return await sendService.Query<List<LogModel>>($"http://{_host}/users/logs");
     }
 
-
-    public async Task<Robot?> Start(StartCleanModel model)
+    public async Task<UserDataModel?> GetData()
     {
-        return await sendService.Command<Robot>(HttpMethod.Put, $"http://{_host}/robots/start", model);
+        return await sendService.Query<UserDataModel>($"http://{_host}/users/data");
+    }
+
+
+    public async Task<RobotModel?> Start(StartCleanModel model)
+    {
+        return await sendService.Command<RobotModel>(HttpMethod.Put, $"http://{_host}/robots/start", model);
     }
 }

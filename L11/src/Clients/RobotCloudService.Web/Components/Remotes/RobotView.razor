@@ -30,8 +30,8 @@
 
 
 @code {
-    [Parameter][EditorRequired] public Robot Robot { get; set; } = null!;
-    [Parameter][EditorRequired] public List<Room> Rooms { get; set; } = [];
+    [Parameter][EditorRequired] public RobotModel Robot { get; set; } = null!;
+    [Parameter][EditorRequired] public List<RoomModel> Rooms { get; set; } = [];
     [Parameter][EditorRequired] public EventCallback<StartCleanModel> Clean { get; set; }
     private string _selectedRoomId = string.Empty;
     private string _time => Robot.CalculatedTimeOfCleaningOver < DateTime.UtcNow ? DateTime.UtcNow.Humanize() : Robot.CalculatedTimeOfCleaningOver.Humanize();

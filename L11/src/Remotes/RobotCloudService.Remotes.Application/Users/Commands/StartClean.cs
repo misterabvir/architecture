@@ -18,7 +18,7 @@ public static class StartClean
             var user = await unitOfWork.Users.GetByIdAsync(command.UserId, cancellationToken);
             if (user is null)
             {
-                return Error.NotFound("StartClean.NotFound", "User not found");
+                return Error.NotFound("StartClean.UserNotFound", "User not found");
             }
 
             var result = user.StartClean(RobotId.Create(command.RobotId), RoomId.Create(command.RoomId));

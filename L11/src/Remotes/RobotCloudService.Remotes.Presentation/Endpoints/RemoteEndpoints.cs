@@ -12,31 +12,31 @@ public static partial class RemoteEndpoints
 {
     internal static WebApplication MapRemoteEndpoints(this WebApplication app)
     {
-        app.MapGet(Contracts.Users.Routes.UserData, GetUserDataHandler)
+        app.MapGroup("users").MapGet(Contracts.Users.Routes.UserData, GetUserDataHandler)
             .WithTags("user")
             .RequireAuthorization();
 
-        app.MapGet(Contracts.Users.Routes.UserLogs, GetUserLogsDataHandler)
+        app.MapGroup("users").MapGet(Contracts.Users.Routes.UserLogs, GetUserLogsDataHandler)
             .WithTags("user")
             .RequireAuthorization();
 
-        app.MapPost(Contracts.Rooms.Requests.AddRoom.Route, AddRoomHandler)
+        app.MapGroup("rooms").MapPost(Contracts.Rooms.Requests.AddRoom.Route, AddRoomHandler)
             .WithTags("room")
             .RequireAuthorization();
 
-        app.MapPut(Contracts.Rooms.Requests.UpdateRoom.Route, UpdateRoomHandler)
+        app.MapGroup("rooms").MapPut(Contracts.Rooms.Requests.UpdateRoom.Route, UpdateRoomHandler)
             .WithTags("room")
             .RequireAuthorization();
 
-        app.MapPost(Contracts.Robots.Requests.AddRobot.Route, AddRobotHandler)
+        app.MapGroup("robots").MapPost(Contracts.Robots.Requests.AddRobot.Route, AddRobotHandler)
             .WithTags("robot")
             .RequireAuthorization();
         
-        app.MapPut(Contracts.Robots.Requests.UpdateRobot.Route, UpdateRobotHandler)
+        app.MapGroup("robots").MapPut(Contracts.Robots.Requests.UpdateRobot.Route, UpdateRobotHandler)
             .WithTags("robot")
             .RequireAuthorization();
 
-        app.MapPut(Contracts.Robots.Requests.StartClean.Route, StartCleanHandler)
+        app.MapGroup("robots").MapPut(Contracts.Robots.Requests.StartClean.Route, StartCleanHandler)
             .WithTags("robot")
             .RequireAuthorization();
 

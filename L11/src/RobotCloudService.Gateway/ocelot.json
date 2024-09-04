@@ -1,0 +1,83 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/authentication/{path}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "robot-cloud-api-authentication",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/authentication/{path}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "SwaggerKey": "authentication"
+    },
+    {
+      "DownstreamPathTemplate": "/users/{path}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "robot-cloud-api-remote",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/users/{path}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "SwaggerKey": "remote"
+    },
+    {
+      "DownstreamPathTemplate": "/robots/{path}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "robot-cloud-api-remote",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/robots/{path}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "SwaggerKey": "remote"
+    },
+    {
+      "DownstreamPathTemplate": "/rooms/{path}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "robot-cloud-api-remote",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/rooms/{path}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "SwaggerKey": "remote"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://robot-cloud-api-gateway:8080"
+  },
+  "SwaggerEndpoints": [
+    {
+      "Key": "authentication",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Authentication API",
+          "Version": "V1",
+          "Url": "http://robot-cloud-api-authentication:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "remote",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Remote API",
+          "Version": "V1",
+          "Url": "http://robot-cloud-api-remote:8080/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

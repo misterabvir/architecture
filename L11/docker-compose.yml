@@ -1,85 +1,84 @@
 services:
-    remote-web-client:
-        image: ${DOCKER_REGISTRY-}remote-web-client
-        container_name: remote-web-client
+    robot-cloud-web-client:
+        image: ${DOCKER_REGISTRY-}robot-cloud-web-client
+        container_name: robot-cloud-web-client
         build:
             context: .
             dockerfile: src/Clients/RobotCloudService.Web/Dockerfile
         environment:
             ASPNETCORE_ENVIRONMENT: Development
             ASPNETCORE_HTTP_PORTS: 8080
-            ASPNETCORE_HTTPS_PORTS: 8081
-            ConnectionStrings__QueueConnection: amqp://user:password@remote-queue:5672
+            ConnectionStrings__QueueConnection: amqp://user:password@robot-cloud-queue:5672
             Settings__Token__Secret: 4E6C25612548BD7CC111C90260082CF79DAA287184C7EC4B3462A31AED6F44EA
-            Address__Authentication: remote-authentication:8080
-            Address__Remote: remote-cleaner:8080
+            Address__Authentication: robot-cloud-authentication:8080
+            Address__Api: robot-cloud-api-gateway:8080
         ports:
-            - "13001:8080" 
-            - "13000:8081" 
-        volumes:
-            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+            - "13000:8080"
         links:
-            - remote-queue:remote-queue
-            - remote-authentication:remote-authentication
-            - remote-cleaner:remote-cleaner
+            - robot-cloud-queue:robot-cloud-queue
+            - robot-cloud-api-gateway:robot-cloud-api-gateway
 
-    remote-authentication:
-        image: ${DOCKER_REGISTRY-}remote-authentication
-        container_name: remote-authentication
+    robot-cloud-api-gateway:
+        image: ${DOCKER_REGISTRY-}robot-cloud-api-gateway
+        container_name: robot-cloud-api-gateway
+        build:
+            context: .
+            dockerfile: src/RobotCloudService.Gateway/Dockerfile
+        environment:
+            ASPNETCORE_ENVIRONMENT: Development
+            ASPNETCORE_HTTP_PORTS: 8080
+        ports:
+            - "12000:8080"
+        links:
+            - robot-cloud-api-authentication:robot-cloud-api-authentication
+            - robot-cloud-api-remote:robot-cloud-api-remote
+
+    robot-cloud-api-authentication:
+        image: ${DOCKER_REGISTRY-}robot-cloud-api-authentication
+        container_name: robot-cloud-api-authentication
         build:
             context: .
             dockerfile: src/Authentications/RobotCloudService.Authentications.Presentation/Dockerfile
         environment:
             ASPNETCORE_ENVIRONMENT: Development
             ASPNETCORE_HTTP_PORTS: 8080
-            ASPNETCORE_HTTPS_PORTS: 8081
-            ConnectionStrings__DbConnection: Server=remote-database;Port=5432;Database=remote_db;User Id=postgres;Password=postgres;
-            ConnectionStrings__CacheConnection: remote-cache:6379
-            ConnectionStrings__QueueConnection: amqp://user:password@remote-queue:5672
+            ConnectionStrings__DbConnection: Server=robot-cloud-database;Port=5432;Database=remote_db;User Id=postgres;Password=postgres;
+            ConnectionStrings__CacheConnection: robot-cloud-cache:6379
+            ConnectionStrings__QueueConnection: amqp://user:password@robot-cloud-queue:5672
             Settings__Token__Secret: 4E6C25612548BD7CC111C90260082CF79DAA287184C7EC4B3462A31AED6F44EA
-            Settings__Smtp__Host: remote-smtp
+            Settings__Smtp__Host: robot-cloud-smtp
             Settings__Smtp__Port: 1025
         ports:
-            - "10001:8080" 
-            - "10000:8081" 
-        volumes:
-            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+            - "10000:8080" 
         links:
-            - remote-database:remote-database
-            - remote-queue:remote-queue
-            - remote-cache:remote-cache
-            - remote-smtp:remote-smtp
+            - robot-cloud-database:robot-cloud-database
+            - robot-cloud-queue:robot-cloud-queue
+            - robot-cloud-cache:robot-cloud-cache
+            - robot-cloud-smtp:robot-cloud-smtp
 
-    remote-cleaner:
-        image: ${DOCKER_REGISTRY-}remote-cleaner
-        container_name: remote-cleaner
+    robot-cloud-api-remote:
+        image: ${DOCKER_REGISTRY-}robot-cloud-api-remote
+        container_name: robot-cloud-api-remote
         build:
             context: .
             dockerfile: src/Remotes/RobotCloudService.Remotes.Presentation/Dockerfile
         environment:
             ASPNETCORE_ENVIRONMENT: Development
             ASPNETCORE_HTTP_PORTS: 8080
-            ASPNETCORE_HTTPS_PORTS: 8081
-            ConnectionStrings__DbConnection: Server=remote-database;Port=5432;Database=remote_db;User Id=postgres;Password=postgres;
-            ConnectionStrings__CacheConnection: remote-cache:6379
-            ConnectionStrings__QueueConnection: amqp://user:password@remote-queue:5672
+            ConnectionStrings__DbConnection: Server=robot-cloud-database;Port=5432;Database=remote_db;User Id=postgres;Password=postgres;
+            ConnectionStrings__CacheConnection: robot-cloud-cache:6379
+            ConnectionStrings__QueueConnection: amqp://user:password@robot-cloud-queue:5672
             Settings__Token__Secret: 4E6C25612548BD7CC111C90260082CF79DAA287184C7EC4B3462A31AED6F44EA
         ports:
-            - "11001:8080" 
-            - "11000:8081" 
-        volumes:
-            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+            - "11000:8080"
         links:
-            - remote-database:remote-database
-            - remote-queue:remote-queue
-            - remote-cache:remote-cache
+            - robot-cloud-database:robot-cloud-database
+            - robot-cloud-queue:robot-cloud-queue
+            - robot-cloud-cache:robot-cloud-cache
 
-    remote-database:
+    robot-cloud-database:
         image: postgres
-        container_name: remote-database
+        container_name: robot-cloud-database
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
@@ -89,9 +88,9 @@ services:
         volumes:
             - ./containers/database:/var/lib/postgresql/data
     
-    remote-queue:
+    robot-cloud-queue:
         image: rabbitmq:management
-        container_name: remote-queue
+        container_name: robot-cloud-queue
         ports:
             - 5672:5672
             - 15672:15672
@@ -101,18 +100,18 @@ services:
             RABBITMQ_DEFAULT_USER: user
             RABBITMQ_DEFAULT_PASS: password
 
-    remote-cache:
+    robot-cloud-cache:
         image: redis:latest
-        container_name: remote-cache
+        container_name: robot-cloud-cache
         restart: always 
         ports:
             - 6379:6379
         volumes:
             - ./containers/cache:/usr/local/etc/redis
 
-    remote-smtp:
+    robot-cloud-smtp:
         image: haravich/fake-smtp-server
-        container_name: remote-smtp
+        container_name: robot-cloud-smtp
         restart: always
         ports:
           - "12025:1025"

@@ -15,7 +15,7 @@ public interface IAuthenticationService
 
 public class AuthenticationService(ISendService sendService, IConfiguration configuration) : IAuthenticationService
 {
-    private readonly string _host = configuration["Address:Authentication"]!;
+    private readonly string _host = configuration["Address:Api"]!;
 
     public async Task<string?> Confirm(ConfirmAccountModel model)
     {

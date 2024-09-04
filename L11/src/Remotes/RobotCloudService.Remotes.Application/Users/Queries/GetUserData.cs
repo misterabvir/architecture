@@ -15,7 +15,7 @@ public static class GetUserData
             var user = await unitOfWork.Users.GetByIdAsync(query.UserId, cancellationToken);
             if(user is null)
             {
-                return Error.NotFound("GetUserData.NotFound", "User not found");
+                return Error.NotFound("GetUserData.UserNotFound", "User not found");
             }
             return user;
         }

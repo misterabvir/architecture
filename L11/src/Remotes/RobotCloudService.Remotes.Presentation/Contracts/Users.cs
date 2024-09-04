@@ -6,8 +6,8 @@ internal static class Users
 {
     public static class Routes
     {
-        public const string UserData = "users/data";
-        public const string UserLogs = "users/logs";
+        public const string UserData = "data";
+        public const string UserLogs = "logs";
     }
         
     public static class Responses
@@ -32,7 +32,6 @@ internal static class Users
 
         internal record UserData
         {
-           
             public Ulid UserId { get; set; } = default!;
             public IEnumerable<Rooms.Responses.Room> Rooms { get; set; } = [];
             public IEnumerable<Robots.Responses.Robot> Robots { get; set; } = [];

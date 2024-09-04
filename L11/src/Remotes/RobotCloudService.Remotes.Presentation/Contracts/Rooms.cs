@@ -8,7 +8,7 @@ internal static class Rooms
     {
         public record AddRoom(string Title, double Area)
         {
-            public const string Route = "rooms/add";
+            public const string Route = "add";
             public Application.Users.Commands.AddRoom.Command ToCommand(Ulid userId)
             {
                 return new Application.Users.Commands.AddRoom.Command(userId, Title, Area);
@@ -16,7 +16,7 @@ internal static class Rooms
         }
         public record UpdateRoom(Ulid RoomId, string Title, double Area)
         {
-            public const string Route = "rooms/update";            
+            public const string Route = "update";            
             public Application.Users.Commands.UpdateRoom.Command ToCommand(Ulid userId)
             {
                 return new Application.Users.Commands.UpdateRoom.Command(userId, RoomId, Title, Area);

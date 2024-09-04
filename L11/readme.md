@@ -13,4 +13,10 @@
 ##### simulation work
 - background service on Remote Api
 
-![](/assets/record.gif)
+##### result
+![](assets/record.gif)
+
+##### auth tests
+![](assets/tests-auth-coverage.png)
+##### remote tests
+![](assets/tests-remote-coverage.png)

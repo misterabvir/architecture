@@ -1,5 +1,5 @@
 ﻿@page "/remote"
-<MudPaper MaxWidth="600">
+<MudPaper Width="600">
     <MudPaper Class="d-flex  justify-center">
         <MudExpansionPanels MultiExpansion="true">
             <MudExpansionPanel Text="Add Robot">
@@ -54,10 +54,10 @@
     [Inject] ILogger<RemotePage> Logger { get; set; } = null!;
     [Inject] INotificationService NotificationService { get; set; } = null!;
     [Inject] ISnackbar SnackBar { get; set; } = null!;
-    private List<Log>? UserLogs { get; set; }
-    private UserData? UserData { get; set; }
-    private AddRobot addRobotModel { get; set; } = new();
-    private AddRoom addRoomModel { get; set; } = new();
+    private List<LogModel>? UserLogs { get; set; }
+    private UserDataModel? UserData { get; set; }
+    private AddRobotModel addRobotModel { get; set; } = new();
+    private AddRoomModel addRoomModel { get; set; } = new();
     protected override async Task OnInitializedAsync()
     {
         UserData = await RemoteService.GetData();

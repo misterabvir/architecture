@@ -1,14 +1,11 @@
 ﻿using RobotCloudService.Application.Common;
 using RobotCloudService.Application.Results;
-using RobotCloudService.Remotes.Application.Users.Snapshots;
 using RobotCloudService.Remotes.Application.Users.ValueObjects;
 
 namespace RobotCloudService.Remotes.Application.Users.Entities;
 
 public class Robot : Entity
 {
-
-    
     public RobotId RobotId { get; private set; } = default!;
     public UserId UserId { get; private set; } = default!;
     public Model Model { get; private set; } = default!;
@@ -39,7 +36,7 @@ public class Robot : Entity
         if (RobotState != State.Idle)
             return Error.Conflict("Start.Cleaning", "Robot is not idle");
 
-        CalculatedTimeOfCleaningOver = DateTime.UtcNow.AddMinutes(room.Area.Value / Speed.Value);
+        CalculatedTimeOfCleaningOver = DateTime.UtcNow.AddSeconds(room.Area.Value / Speed.Value);
         RobotState = State.Cleaning;
         RoomId = room.RoomId;
 
@@ -47,16 +44,9 @@ public class Robot : Entity
     }
 
     public SuccessOrError StopClean()
-    {
-        if(DateTime.UtcNow < CalculatedTimeOfCleaningOver)
-        {
-            return Error.Conflict("Stop.Cleaning", "Robot not over cleaning time yet, please wait");
-        }
-        
+    {       
         if (RobotState != State.Cleaning)
-            return Error.Conflict("Stop.Cleaning", "Robot is not cleaning");
-
-
+            return Error.Conflict("StopCleaning.Idle", "Robot is not cleaning");
 
         RobotState = State.Idle;
         RoomId = RoomId.Empty;
@@ -74,35 +64,6 @@ public class Robot : Entity
         Speed = speed;
         return SuccessOrError.Success;
     }
-
-    internal RobotSnapshot ToSnapshot()
-    {
-        return new RobotSnapshot()
-        {
-            RobotId = RobotId,
-            UserId = UserId,
-            Model = Model,
-            Speed = Speed,
-            RobotState = RobotState,
-            RoomId = RoomId,
-            CalculatedTimeOfCleaningOver = CalculatedTimeOfCleaningOver
-        };
-    }
-
-    internal static Robot FromSnapshot(RobotSnapshot snapshot)
-    {
-        return new Robot()
-        {
-            RobotId = snapshot.RobotId,
-            UserId = snapshot.UserId,
-            Model = snapshot.Model,
-            Speed = snapshot.Speed,
-            RobotState = snapshot.RobotState,
-            RoomId = snapshot.RoomId,
-            CalculatedTimeOfCleaningOver = snapshot.CalculatedTimeOfCleaningOver
-        };
-    }
-
 
     protected override IEnumerable<ValueObject> EqualityComponents()
     {

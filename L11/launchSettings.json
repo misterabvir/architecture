@@ -4,16 +4,16 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "composeLaunchAction": "LaunchBrowser",
-      "composeLaunchServiceName": "remote-web-client",
+      "composeLaunchServiceName": "robot-cloud-web-client",
       "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}",
       "serviceActions": {
-        "remote-web-client": "StartDebugging",
-        "remote-authentication": "StartWithoutDebugging",
-        "remote-cleaner": "StartWithoutDebugging",
-        "remote-cache": "StartWithoutDebugging",
-        "remote-database": "StartWithoutDebugging",
-        "remote-queue": "StartWithoutDebugging",
-        "remote-smtp": "StartWithoutDebugging"
+        "robot-cloud-web-client": "StartDebugging",
+        "robot-cloud-api-authentication": "StartWithoutDebugging",
+        "robot-cloud-api-remote": "StartWithoutDebugging",
+        "robot-cloud-cache": "StartWithoutDebugging",
+        "robot-cloud-database": "StartWithoutDebugging",
+        "robot-cloud-queue": "StartWithoutDebugging",
+        "robot-cloud-smtp": "StartWithoutDebugging"
       }
     }
   }

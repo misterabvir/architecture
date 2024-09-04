@@ -6,7 +6,7 @@ internal static class Robots
     {
         public record AddRobot(string Model, double Speed)
         {
-            public const string Route = "robots/add";
+            public const string Route = "add";
             public Application.Users.Commands.AddRobot.Command ToCommand(Ulid userId)
             {
                 return new Application.Users.Commands.AddRobot.Command(userId, Model, Speed);
@@ -15,7 +15,7 @@ internal static class Robots
 
         public record UpdateRobot(Ulid RobotId, string Model, double Speed)
         {
-            public const string Route = "robots/update";
+            public const string Route = "update";
             public Application.Users.Commands.UpdateRobot.Command ToCommand(Ulid userId)
             {
                 return new Application.Users.Commands.UpdateRobot.Command(userId, RobotId, Model, Speed);
@@ -24,7 +24,7 @@ internal static class Robots
 
         public record StartClean(Ulid RobotId, Ulid RoomId)
         {
-            public const string Route = "robots/start";
+            public const string Route = "start";
             public Application.Users.Commands.StartClean.Command ToCommand(Ulid userId)
             {
                 return new Application.Users.Commands.StartClean.Command(userId, RoomId, RobotId);

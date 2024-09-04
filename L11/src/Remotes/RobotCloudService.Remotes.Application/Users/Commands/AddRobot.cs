@@ -17,7 +17,7 @@ public static class AddRobot
             var user = await unitOfWork.Users.GetByIdAsync(command.UserId, cancellationToken);
             if (user is null)
             {
-                return Error.NotFound("AddRobot.NotFound", "User not found");
+                return Error.NotFound("AddRobot.UserNotFound", "User not found");
             }
 
             var result = user.AddRobot(Model.Create(command.Model), Speed.Create(command.Speed));

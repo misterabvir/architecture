@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RobotCloudService.Authentication.Tests": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

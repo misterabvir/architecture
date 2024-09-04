@@ -4,10 +4,10 @@ namespace RobotCloudService.Web.Components.Remotes.Services;
 
 public interface IRemoteService
 {
-    Task<UserData?> GetData();
-    Task<List<Log>?> GetLogs();
-    Task<Robot?> AddRobot(AddRobot model);
-    Task<Room?> AddRoom(AddRoom model);
-    Task<Robot?> Start(StartCleanModel model);
+    Task<UserDataModel?> GetData();
+    Task<List<LogModel>?> GetLogs();
+    Task<RobotModel?> AddRobot(AddRobotModel model);
+    Task<RoomModel?> AddRoom(AddRoomModel model);
+    Task<RobotModel?> Start(StartCleanModel model);
 
 }

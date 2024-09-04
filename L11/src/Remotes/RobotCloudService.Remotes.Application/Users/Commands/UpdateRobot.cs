@@ -16,7 +16,7 @@ public static class UpdateRobot
             var user = await unitOfWork.Users.GetByIdAsync(command.UserId, cancellationToken);
             if (user is null)
             {
-                return Error.NotFound("UpdateRobot.NotFound", "User not found");
+                return Error.NotFound("UpdateRobot.UserNotFound", "User not found");
             }
 
             var result = user.UpdateRobot(

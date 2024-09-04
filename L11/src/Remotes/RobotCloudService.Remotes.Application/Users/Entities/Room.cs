@@ -1,5 +1,4 @@
 ﻿using RobotCloudService.Application.Common;
-using RobotCloudService.Remotes.Application.Users.Snapshots;
 using RobotCloudService.Remotes.Application.Users.ValueObjects;
 
 namespace RobotCloudService.Remotes.Application.Users.Entities;
@@ -35,30 +34,6 @@ public class Room : Entity
     internal void Cleaned()
     {
         LastCleanedAt = DateTime.UtcNow;
-    }
-
-    internal RoomSnapshot ToSnapshot()
-    {
-        return new RoomSnapshot()
-        {
-            RoomId = RoomId,
-            UserId = UserId,
-            Title = Title,
-            Area = Area,
-            LastCleanedAt = LastCleanedAt
-        };
-    }
-
-    internal static Room FromSnapshot(RoomSnapshot snapshot)
-    {
-        return new Room()
-        {
-            RoomId = snapshot.RoomId,
-            UserId = snapshot.UserId,
-            Title = snapshot.Title,
-            Area = snapshot.Area,
-            LastCleanedAt = snapshot.LastCleanedAt
-        };
     }
 
     protected override IEnumerable<ValueObject> EqualityComponents()

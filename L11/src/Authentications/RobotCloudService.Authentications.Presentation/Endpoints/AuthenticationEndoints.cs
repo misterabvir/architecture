@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RobotCloudService.Application.Results;
+using RobotCloudService.Authentications.Presentation.Contracts;
 
 namespace RobotCloudService.Authentications.Presentation.Endpoints;
 
@@ -8,35 +9,41 @@ public static class AuthenticationEndoints
 {
     public static WebApplication MapAuthenticationEndpoints(this WebApplication app)
     {
-        app.MapPost(Contracts.Authentications.Requests.Register.Route, RegisterHandler)
-            .WithTags("users")
+        app.MapGroup("authentication")
+            .MapPost(Requests.Register.Route, RegisterHandler)
+            .WithTags("authentication")
             .AllowAnonymous();
 
-        app.MapPost(Contracts.Authentications.Requests.Login.Route, LoginHandler)
-            .WithTags("users")
+        app.MapGroup("authentication")
+            .MapPost(Requests.Login.Route, LoginHandler)
+            .WithTags("authentication")
             .AllowAnonymous();
 
-        app.MapPost(Contracts.Authentications.Requests.Confirm.Route, ConfirmHandler)
-            .WithTags("users")
+        app.MapGroup("authentication")
+            .MapPost(Requests.Confirm.Route, ConfirmHandler)
+            .WithTags("authentication")
             .AllowAnonymous();
 
-        app.MapPut(Contracts.Authentications.Requests.ResetPassword.Route, ResetPasswordHandler)
-            .WithTags("users")
+        app.MapGroup("authentication")
+            .MapPut(Requests.ResetPassword.Route, ResetPasswordHandler)
+            .WithTags("authentication")
             .AllowAnonymous();
 
-        app.MapPost(Contracts.Authentications.Requests.ForgotPassword.Route, ForgotPasswordHandler)
-            .WithTags("users")
+        app.MapGroup("authentication")
+            .MapPost(Requests.ForgotPassword.Route, ForgotPasswordHandler)
+            .WithTags("authentication")
             .AllowAnonymous();
 
-        app.MapPost(Contracts.Authentications.Requests.RepeatSendCode.Route, RepeatSendCodeHandler)
-            .WithTags("users")
+        app.MapGroup("authentication")
+            .MapPost(Requests.RepeatSendCode.Route, RepeatSendCodeHandler)
+            .WithTags("authentication")
             .AllowAnonymous();
 
         return app;
     }
 
     private static async Task<IResult> RegisterHandler(
-        [FromBody] Contracts.Authentications.Requests.Register request,
+        [FromBody] Requests.Register request,
         [FromServices] ISender sender,
         CancellationToken cancellationToken)
     {
@@ -46,7 +53,7 @@ public static class AuthenticationEndoints
     }
 
     private static async Task<IResult> LoginHandler(
-        [FromBody] Contracts.Authentications.Requests.Login request,
+        [FromBody] Requests.Login request,
         [FromServices] ISender sender,
         CancellationToken cancellationToken)
     {
@@ -56,7 +63,7 @@ public static class AuthenticationEndoints
     }
 
     private static async Task<IResult> ConfirmHandler(
-        [FromBody] Contracts.Authentications.Requests.Confirm request,
+        [FromBody] Requests.Confirm request,
         [FromServices] ISender sender,
         CancellationToken cancellationToken)
     {
@@ -66,7 +73,7 @@ public static class AuthenticationEndoints
     }
 
     private static async Task<IResult> ResetPasswordHandler(
-        [FromBody] Contracts.Authentications.Requests.ResetPassword request,
+        [FromBody] Requests.ResetPassword request,
         [FromServices] ISender sender,
         CancellationToken cancellationToken)
     {
@@ -76,7 +83,7 @@ public static class AuthenticationEndoints
     }
 
     private static async Task<IResult> ForgotPasswordHandler(
-        [FromBody] Contracts.Authentications.Requests.ForgotPassword request,
+        [FromBody] Requests.ForgotPassword request,
         [FromServices] ISender sender,
         CancellationToken cancellationToken)
     {
@@ -86,7 +93,7 @@ public static class AuthenticationEndoints
     }
 
     private static async Task<IResult> RepeatSendCodeHandler(
-        [FromBody] Contracts.Authentications.Requests.RepeatSendCode request,
+        [FromBody] Requests.RepeatSendCode request,
         [FromServices] ISender sender,
         CancellationToken cancellationToken)
     {

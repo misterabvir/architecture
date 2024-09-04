@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <DockerComposeProjectName>remote</DockerComposeProjectName>
+    <DockerComposeProjectName>robot-cloud</DockerComposeProjectName>
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>a8f9fd45-1196-4e31-924c-eb1d74eb9120</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>

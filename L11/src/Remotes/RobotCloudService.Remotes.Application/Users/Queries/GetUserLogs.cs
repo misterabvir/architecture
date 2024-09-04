@@ -15,7 +15,7 @@ public static class GetUserLogs
             var user = await unitOfWork.Users.GetByIdAsync(query.UserId, cancellationToken);
             if (user is null)
             {
-                return Error.NotFound("GetUserLogs.NotFound", "User not found");
+                return Error.NotFound("GetUserLogs.UserNotFound", "User not found");
             }
             return user.Logs.ToList();
         }
